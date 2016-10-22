@@ -1,0 +1,51 @@
+COMPOSICION DEL REPOSITORIO
+     - Directorio de Trabajo: Donde estan los archivos
+     - Index: Zona intermedia
+     - HEAD: Apunta al ultimo commit realizado
+
+
+Anadir Archivos (añadirlos al INDEX):
+     - git add <filename>
+     - git add .
+
+
+Commit de los cambios:
+     . git commit -m "Commit Message"
+
+NOTA: Los cambios ahora estan en el HEAD, 
+pero no en el repositorio remoto
+
+
+Envio de cambios (Subirlos al REPOSITORIO REMOTO):
+     - git push origin <rama> (Rama principal = master)
+
+
+#########
+# RAMAS #
+#########
+
+Crear una Rama y apuntar a ella:
+     - git checkout -b rama2
+
+Cambiar a que rama apunto:
+     - git checkout <rama>
+
+Borrar la Rama:
+     - git branch .d rama2
+
+Subir la rama:
+     - git push origin rama2
+
+
+
+
+
+Configurar git:
+1) Colocarse en la copia local
+git config --global user.email "email@com"s que subas (pus
+git config --global user.name "Name"
+
+NOTAS
+--global para mantener la configuracion en todos los repositorios.
+Si no se especifica --gloabl, la configuracion es solo para el directorio 
+
